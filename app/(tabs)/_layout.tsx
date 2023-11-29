@@ -1,28 +1,69 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { Tabs } from 'expo-router'
-
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name']
-  color: string
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />
-}
+import React from 'react'
+import { Image } from 'expo-image'
+import tw from '@/lib/tailwind'
+import blurhash from '@/constraints/blurhash'
+import VectorIcon from '@/components/VectorIcon'
 
 export default function TabLayout() {
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: 'black',
+        tabBarShowLabel: false,
+        headerShown: false,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Home',
+          tabBarIcon: ({ color }) => (
+            <VectorIcon size={28} name="home" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="livreto"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Livreto',
+          tabBarIcon: ({ color }) => (
+            <VectorIcon size={28} name="book" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="novaMemoria"
+        options={{
+          title: 'Novo',
+          tabBarIcon: ({ color }) => (
+            <VectorIcon size={28} name="plus-square" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="musica"
+        options={{
+          title: 'Músicas',
+          tabBarIcon: ({ color }) => (
+            <VectorIcon size={28} name="music" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="perfil"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Image
+              style={[
+                tw`aspect-square h-8 rounded-full`,
+                focused && tw`border-[2.5px] border-black`,
+              ]}
+              source={require('@/assets/images/exemploPerfil.jpg')}
+              placeholder={blurhash}
+              alt="Imagem de Perfil"
+            />
+          ),
         }}
       />
     </Tabs>

@@ -1,12 +1,38 @@
-import { MonoText } from '@/components/StyledText'
+import FeedItem from '@/components/FeedItem'
+import HeaderFeed from '@/components/HeaderFeed'
 import tw from '@/lib/tailwind'
-import { View, Text } from 'react-native'
+import React from 'react'
+import { View, ScrollView } from 'react-native'
 
 export default function TabOneScreen() {
   return (
-    <View style={tw`flex-1 items-center justify-center gap-2`}>
-      <Text style={tw`text-xl font-bold`}>Tab One</Text>
-      <MonoText style={tw`text-base`}>Tab One Info</MonoText>
+    <View style={tw`flex-1 bg-white`}>
+      <HeaderFeed />
+      <ScrollView style={tw`flex-1`}>
+        <View style={tw`flex-1 gap-4 pb-8`}>
+          {Array.from({ length: 5 }).map((_, index) => {
+            return (
+              <FeedItem
+                key={index}
+                usuario={{
+                  imgPerfil: require('@/assets/images/exemploPerfil.jpg'),
+                  nick: 'fg.andre',
+                  polo: 'Polo XI - Cananéia',
+                }}
+                imagem={{
+                  source: require('@/assets/images/exemploFeed.png'),
+                  proportion: index % 2 === 0 ? '5/4' : '4/5',
+                }}
+                postagem={{
+                  descricao:
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                  numeroDeComentarios: index,
+                }}
+              />
+            )
+          })}
+        </View>
+      </ScrollView>
     </View>
   )
 }
