@@ -22,7 +22,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.andre.comeerj.cananeiaapp"
     },
     "web": {
       "bundler": "metro",
@@ -41,6 +46,14 @@
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a64f52e4-c670-4952-b498-92e751a48420"
+      }
     }
   }
 }
