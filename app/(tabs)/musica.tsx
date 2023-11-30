@@ -6,8 +6,8 @@ import { MonoText } from '@/components/StyledText'
 export default function MusicaScreen() {
   return (
     <View style={tw`flex-1 items-center justify-center`}>
-      <Text style={tw`text-xl font-bold`}>Tab Two</Text>
-      <MonoText style={tw`text-base`}>Tab Two Info</MonoText>
+      <Text style={tw`text-xl font-bold`}>MÚSICAS</Text>
+      <MonoText style={tw`text-base`}>LISTA DE LETRAS E PARTITURAS</MonoText>
     </View>
   )
 }

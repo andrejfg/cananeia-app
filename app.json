@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "cananeia-app",
+    "name": "Comeerj",
     "slug": "cananeia-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,7 +10,7 @@
     "splash": {
       "image": "./src/assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#f5d1d9"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -30,7 +30,13 @@
       "favicon": "./src/assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Permita $(PRODUCT_NAME) acessar sua câmera."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

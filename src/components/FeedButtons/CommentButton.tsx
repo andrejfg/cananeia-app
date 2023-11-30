@@ -7,7 +7,7 @@ export default function CommentButton() {
   }
   return (
     <TouchableOpacity onPress={onPressComment}>
-      <Icon size={30} name={'chatbubble-outline'} color={'#a6a6a6'} />
+      <Icon size={28} name={'chatbubble-outline'} color={'#a6a6a6'} />
     </TouchableOpacity>
   )
 }

@@ -11,7 +11,7 @@ export default function LikeButton() {
   return (
     <TouchableOpacity onPress={onPressLike}>
       <Icon
-        size={30}
+        size={28}
         name={loved ? 'heart' : 'hearto'}
         color={loved ? 'red' : '#a6a6a6'}
       />

@@ -27,6 +27,7 @@ export default function TabLayout() {
         name="livreto"
         options={{
           title: 'Livreto',
+          freezeOnBlur: true,
           tabBarIcon: ({ color }) => (
             <VectorIcon size={28} name="book" color={color} />
           ),
@@ -36,6 +37,7 @@ export default function TabLayout() {
         name="novaMemoria"
         options={{
           title: 'Novo',
+          unmountOnBlur: true,
           tabBarIcon: ({ color }) => (
             <VectorIcon size={28} name="plus-square" color={color} />
           ),
@@ -45,6 +47,7 @@ export default function TabLayout() {
         name="musica"
         options={{
           title: 'Músicas',
+          freezeOnBlur: true,
           tabBarIcon: ({ color }) => (
             <VectorIcon size={28} name="music" color={color} />
           ),
