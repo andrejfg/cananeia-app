@@ -2,12 +2,15 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import VectorIcon from './VectorIcon'
 import tw from '@/lib/tailwind'
 
-interface LivretoButtonProps {
+interface LivretoItemButtonProps {
   icon: React.ComponentProps<typeof VectorIcon>['name']
   name: string
 }
 
-export default function LivretoButton({ icon, name }: LivretoButtonProps) {
+export default function LivretoItemButton({
+  icon,
+  name,
+}: LivretoItemButtonProps) {
   return (
     <TouchableOpacity
       activeOpacity={0.7}

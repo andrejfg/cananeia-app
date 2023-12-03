@@ -17,6 +17,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
+          unmountOnBlur: true,
           title: 'Home',
           tabBarIcon: ({ color }) => (
             <VectorIcon size={28} name="home" color={color} />

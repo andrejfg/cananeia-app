@@ -75,7 +75,7 @@ function RootLayoutNav() {
         <Stack>
           <Stack.Screen
             name="index"
-            redirect
+            // redirect
             options={{ headerShown: false }}
           />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

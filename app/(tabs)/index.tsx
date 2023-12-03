@@ -4,7 +4,11 @@ import tw from '@/lib/tailwind'
 import React from 'react'
 import { View, ScrollView } from 'react-native'
 
-export default function TabOneScreen() {
+/**
+ * Renders the feed screen component.
+ * @returns - The rendered feed screen component.
+ */
+export default function FeedScreen() {
   return (
     <View style={tw`flex-1 bg-white`}>
       <HeaderFeed />

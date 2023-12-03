@@ -10,6 +10,14 @@ type MaterialCommunityIconName = React.ComponentProps<
   typeof MaterialCommunityIcons
 >['name']
 
+/**
+ * Renders a vector icon based on the provided props.
+ * @param {object} props - The props for the vector icon component.
+ * @param {string} props.name - The name of the icon from the Feather, MaterialCommunityIcons, or MaterialIcons library.
+ * @param {string} props.color - The color of the icon.
+ * @param {number} props.size - The size of the icon.
+ * @returns The rendered vector icon component.
+ */
 export default function VectorIcon(props: {
   name: FeatherIconName | MaterialCommunityIconName | MaterialIconsName
   color: string

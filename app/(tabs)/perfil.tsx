@@ -1,17 +1,21 @@
 import { ScrollView, View } from 'react-native'
 import tw from '@/lib/tailwind'
 import React from 'react'
-import HeaderPerfil from '@/components/HeaderPerfil'
 import CustomButton from '@/components/CustomButton'
-import InfoPerfil from '@/components/InfoPerfil'
-import PerfilFeedItem from '@/components/PerfilFeedItem'
+import InfoProfile from '@/components/InfoProfile'
+import HeaderProfile from '@/components/HeaderProfile'
+import ProfileFeedItem from '@/components/ProfileFeedItem'
 
+/**
+ * Renders the profile screen component.
+ * @returns The rendered profile screen component.
+ */
 export default function PerfilScreen() {
   return (
     <View style={tw`flex-1 bg-white`}>
-      <HeaderPerfil nick="fg.andre" />
+      <HeaderProfile nick="fg.andre" />
       <ScrollView style={tw`flex-1`}>
-        <InfoPerfil
+        <InfoProfile
           usuario={{
             imagem: require('@/assets/images/exemploPerfil.jpg'),
             nome: 'André Felipe',
@@ -27,7 +31,7 @@ export default function PerfilScreen() {
           <View style={tw`flex-1 flex-row flex-wrap items-start gap-1 pl-1.5`}>
             {Array.from({ length: 5 }).map((_, index) => {
               return (
-                <PerfilFeedItem
+                <ProfileFeedItem
                   key={index}
                   source={require('@/assets/images/exemploFeed.png')}
                 />

@@ -6,6 +6,12 @@ import FlashButton from '@/components/CameraButtons/FlashButton'
 import SwitchCameraButton from '@/components/CameraButtons/SwitchCameraButton'
 import ShootButton from '@/components/CameraButtons/ShootButton'
 
+/**
+ * The NovaMemoriaScreen component displays a camera view and allows the user to take pictures.
+ * It uses the Camera component from the Expo Camera library to access the device's camera.
+ * The component manages the camera type, flash state, and camera permissions.
+ * @returns A React component that renders a camera view.
+ */
 export default function NovaMemoriaScreen() {
   const [type, setType] = useState(CameraType.back)
   const [startCamera, setStartCamera] = useState(false)
@@ -22,6 +28,11 @@ export default function NovaMemoriaScreen() {
   }
 
   useEffect(() => {
+    /**
+     * Asynchronously requests permission to access the camera and sets the state of
+     * `startCamera` based on the permission status.
+     * @returns None
+     */
     async function getPermission() {
       const { status } = await requestPermission()
       if (status === 'granted') {
@@ -34,12 +45,20 @@ export default function NovaMemoriaScreen() {
     setType(CameraType.front)
   }, [requestPermission])
 
+  /**
+   * Toggles the camera type between front and back.
+   * @returns None
+   */
   function toggleCameraType() {
     setType((current) =>
       current === CameraType.back ? CameraType.front : CameraType.back,
     )
   }
 
+  /**
+   * Toggles the flash state between true and false.
+   * @returns None
+   */
   function toggleFlashState() {
     setFlashState((current) => !current)
   }

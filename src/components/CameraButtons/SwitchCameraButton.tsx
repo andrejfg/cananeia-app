@@ -1,13 +1,16 @@
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 import VectorIcon from '../VectorIcon'
 
-interface SwitchCameraProps {
-  onPress: () => void
-}
+type SwitchCameraProps = TouchableOpacityProps
 
-export default function SwitchCamera({ onPress }: SwitchCameraProps) {
+/**
+ * A component that renders a switch camera button.
+ * @param {TouchableOpacityProps} props - The props for the TouchableOpacity component.
+ * @returns The rendered switch camera button.
+ */
+export default function SwitchCamera(props: SwitchCameraProps) {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity {...props}>
       <VectorIcon name="flip-camera-android" color="white" size={28} />
     </TouchableOpacity>
   )

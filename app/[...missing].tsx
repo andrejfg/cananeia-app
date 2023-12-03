@@ -2,6 +2,10 @@ import { Link } from 'expo-router'
 import tw from '@/lib/tailwind'
 import { View, Text } from 'react-native'
 
+/**
+ * Renders the NotFoundScreen component, which is displayed when a requested screen is not found.
+ * @returns - The rendered NotFoundScreen component.
+ */
 export default function NotFoundScreen() {
   return (
     <View style={tw`flex-1 items-center justify-center`}>

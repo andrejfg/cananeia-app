@@ -10,6 +10,14 @@ interface FlashButtonProps {
   type: CameraType
 }
 
+/**
+ * Represents a FlashButton component that allows the user to toggle the flash on/off.
+ * @param {FlashButtonProps} props - The props for the FlashButton component.
+ * @param {boolean} props.active - Indicates whether the flash is currently active.
+ * @param {() => void} props.onPress - The function to be called when the button is pressed.
+ * @param {CameraType} props.type - The type of camera being used.
+ * @returns A React component that renders a button to toggle the flash on/off.
+ */
 export default function FlashButton({
   type,
   active,

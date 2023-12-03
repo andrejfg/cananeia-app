@@ -3,7 +3,11 @@ import { View, Text, ScrollView } from 'react-native'
 import { Image } from 'expo-image'
 import EmailLoginForm from '@/components/EmailLoginForm/EmailLoginForm'
 
-export default function Login() {
+/**
+ * A functional component representing the login screen of the application.
+ * @returns JSX elements representing the login screen.
+ */
+export default function LoginScreen() {
   return (
     <ScrollView style={tw`flex-1 bg-white`}>
       <View style={tw`items-center py-8`}>

@@ -21,6 +21,11 @@ interface FeedItemProps {
   }
 }
 
+/**
+ * Represents a single item in a feed, displaying user information, an image, and post details.
+ * @param {FeedItemProps} props - The props object containing the necessary data for rendering the feed item.
+ * @returns A React component representing a feed item.
+ */
 export default function FeedItem({ imagem, usuario, postagem }: FeedItemProps) {
   return (
     <View>

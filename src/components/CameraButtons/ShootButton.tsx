@@ -1,18 +1,18 @@
 import tw from '@/lib/tailwind'
 import React from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
-interface ShootButtonProps {
-  onPress: () => void
-}
+type ShootButtonProps = TouchableOpacityProps
 
-export default function ShootButton({ onPress }: ShootButtonProps) {
+/**
+ * A custom button component that renders a shoot button.
+ * @param {TouchableOpacityProps} props - The props for the TouchableOpacity component.
+ * @returns The rendered ShootButton component.
+ */
+export default function ShootButton(props: ShootButtonProps) {
   return (
     <View style={tw`rounded-full border-4 border-white p-1`}>
-      <TouchableOpacity
-        onPress={onPress}
-        style={tw`rounded-full bg-white p-8`}
-      />
+      <TouchableOpacity {...props} style={tw`rounded-full bg-white p-8`} />
     </View>
   )
 }

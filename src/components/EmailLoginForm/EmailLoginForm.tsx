@@ -9,6 +9,10 @@ import { emailLoginSchemaType, emailLoginSchema } from './loginSchema'
 import { router } from 'expo-router'
 import CustomButton from '../CustomButton'
 
+/**
+ * A functional component that renders an email login form.
+ * @returns JSX element representing the email login form.
+ */
 export default function EmailLoginForm() {
   const methods = useForm<emailLoginSchemaType>({
     resolver: zodResolver(emailLoginSchema),
@@ -29,17 +33,12 @@ export default function EmailLoginForm() {
     <View style={tw`w-full gap-8 px-10`}>
       <FormProvider {...methods}>
         <TextInputForm
-          style={tw`border-textInput`}
           placeholder="Email"
-          textContentType="emailAddress"
+          inputMode="email"
+          autoComplete="email"
           name="email"
         />
-        <TextInputForm
-          style={tw`border-textInput`}
-          placeholder="Senha"
-          textContentType="password"
-          name="senha"
-        />
+        <TextInputForm placeholder="Senha" secureTextEntry name="senha" />
         <View style={tw`flex-row justify-between`}>
           <View style={tw`flex-row items-center`}>
             <Checkbox
@@ -47,7 +46,9 @@ export default function EmailLoginForm() {
               onPress={() => setLembrar(!lembrar)}
               color="#0fb2d1"
             />
-            <Text style={tw`text-xs`}>Lembrar minha senha</Text>
+            <Text onPress={() => setLembrar(!lembrar)} style={tw`text-xs`}>
+              Lembrar minha senha
+            </Text>
           </View>
           <View style={tw`justify-center`}>
             <Text style={tw`border-b border-link text-xs text-link`}>
