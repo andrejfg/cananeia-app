@@ -41,6 +41,22 @@
         {
           "cameraPermission": "Permita $(PRODUCT_NAME) acessar sua câmera."
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Permita $(PRODUCT_NAME) acessar suas fotos.",
+          "savePhotosPermission": "Permita $(PRODUCT_NAME) salvar fotos.",
+          "isAccessMediaLocationEnabled": true
+        }
       ]
     ],
     "experiments": {

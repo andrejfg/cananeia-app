@@ -14,6 +14,7 @@ import {
 } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import tw from '@/lib/tailwind'
+import { RootSiblingParent } from 'react-native-root-siblings'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -53,34 +54,36 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <SafeAreaView style={tw`flex-1 bg-white`}>
-      <PaperProvider
-        theme={{
-          ...MD3LightTheme,
-          version: 3,
-          fonts: configureFonts({
-            isV3: true,
-            config: {
-              default: {
-                fontFamily: 'Roboto_400Regular',
-                fontWeight: '400',
-                letterSpacing: 0,
-                lineHeight: 24,
-                fontSize: 16,
+    <RootSiblingParent>
+      <SafeAreaView style={tw`flex-1 bg-white`}>
+        <PaperProvider
+          theme={{
+            ...MD3LightTheme,
+            version: 3,
+            fonts: configureFonts({
+              isV3: true,
+              config: {
+                default: {
+                  fontFamily: 'Roboto_400Regular',
+                  fontWeight: '400',
+                  letterSpacing: 0,
+                  lineHeight: 24,
+                  fontSize: 16,
+                },
               },
-            },
-          }),
-        }}
-      >
-        <Stack>
-          <Stack.Screen
-            name="index"
-            // redirect
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-      </PaperProvider>
-    </SafeAreaView>
+            }),
+          }}
+        >
+          <Stack>
+            <Stack.Screen
+              name="index"
+              // redirect
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
+        </PaperProvider>
+      </SafeAreaView>
+    </RootSiblingParent>
   )
 }

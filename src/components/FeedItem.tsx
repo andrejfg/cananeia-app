@@ -1,24 +1,13 @@
 import tw from '@/lib/tailwind'
 import blurhash from '@/constraints/blurhash'
-import { Image, ImageSource } from 'expo-image'
+import { Image } from 'expo-image'
 import { Text, View } from 'react-native'
 import LikeButton from './FeedButtons/LikeButton'
 import CommentButton from './FeedButtons/CommentButton'
+import FeedItemType from '@/types/FeedItem'
 
 interface FeedItemProps {
-  usuario: {
-    nick: string
-    polo: string
-    imgPerfil: ImageSource
-  }
-  imagem: {
-    source: ImageSource
-    proportion: string
-  }
-  postagem: {
-    descricao: string
-    numeroDeComentarios: number
-  }
+  feed: FeedItemType
 }
 
 /**
@@ -26,7 +15,7 @@ interface FeedItemProps {
  * @param {FeedItemProps} props - The props object containing the necessary data for rendering the feed item.
  * @returns A React component representing a feed item.
  */
-export default function FeedItem({ imagem, usuario, postagem }: FeedItemProps) {
+export default function FeedItem({ feed }: FeedItemProps) {
   return (
     <View>
       <View style={tw`flex-row gap-2 p-4`}>

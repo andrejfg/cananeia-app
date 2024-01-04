@@ -25,10 +25,6 @@ export default function VectorIcon(props: {
 }) {
   const name = props.name as string
 
-  if (Object.keys(Feather.glyphMap).includes(props.name)) {
-    return <Feather {...props} name={name as FeatherIconName} />
-  }
-
   if (Object.keys(MaterialCommunityIcons.glyphMap).includes(props.name)) {
     return (
       <MaterialCommunityIcons
@@ -37,6 +33,10 @@ export default function VectorIcon(props: {
         name={name as MaterialCommunityIconName}
       />
     )
+  }
+
+  if (Object.keys(Feather.glyphMap).includes(props.name)) {
+    return <Feather {...props} name={name as FeatherIconName} />
   }
 
   if (Object.keys(MaterialIcons.glyphMap).includes(props.name)) {

@@ -19,8 +19,12 @@ export default function TabLayout() {
         options={{
           unmountOnBlur: true,
           title: 'Home',
-          tabBarIcon: ({ color }) => (
-            <VectorIcon size={28} name="home" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <VectorIcon
+              size={28}
+              name={focused ? 'home' : 'home-outline'}
+              color={color}
+            />
           ),
         }}
       />
@@ -29,8 +33,12 @@ export default function TabLayout() {
         options={{
           title: 'Livreto',
           freezeOnBlur: true,
-          tabBarIcon: ({ color }) => (
-            <VectorIcon size={28} name="book" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <VectorIcon
+              size={28}
+              name={focused ? 'book' : 'book-outline'}
+              color={color}
+            />
           ),
         }}
       />
