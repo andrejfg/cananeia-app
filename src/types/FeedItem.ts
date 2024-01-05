@@ -9,8 +9,8 @@ type FeedItemType = {
   createdAt: Date
   updateAt: Date
   acceptedAt: Date
-  participante: Participante
-  polo: Polo
+  participante: Participante | null
+  polo: Polo | null
   imagem: Imagem
 }
 

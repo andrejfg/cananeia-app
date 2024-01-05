@@ -5,6 +5,7 @@ import { Text, View } from 'react-native'
 import LikeButton from './FeedButtons/LikeButton'
 import CommentButton from './FeedButtons/CommentButton'
 import FeedItemType from '@/types/FeedItem'
+import imageUrl from '@/utils/imageUrl'
 
 interface FeedItemProps {
   feed: FeedItemType
@@ -21,39 +22,47 @@ export default function FeedItem({ feed }: FeedItemProps) {
       <View style={tw`flex-row gap-2 p-4`}>
         <Image
           style={[tw`aspect-square h-10 rounded-full`]}
-          source={usuario.imgPerfil}
+          source={imageUrl(
+            feed.participante?.usuario?.perfilImagem?.nome ||
+              feed.polo?.usuario?.perfilImagem?.nome,
+          )}
           placeholder={blurhash}
           alt="imagem do perfil"
         />
         <View>
-          <Text style={tw`font-roboto_bold`}>{usuario.nick}</Text>
-          <Text style={tw`font-roboto`}>{usuario.polo}</Text>
+          <Text style={tw`font-roboto_bold`}>
+            {feed.participante?.usuario?.usuario || feed.polo?.usuario?.usuario}
+          </Text>
+          <Text style={tw`font-roboto`}>
+            {feed.participante?.polo?.nome || feed.polo?.nome}
+          </Text>
         </View>
       </View>
       <Image
-        style={{ aspectRatio: imagem.proportion }}
-        source={imagem.source}
-        placeholder={blurhash}
+        style={{ aspectRatio: '4/5' }}
+        source={imageUrl(feed.imagem.nome)}
+        placeholder={feed.imagem.hash}
         alt="imagem do feed"
       />
       <View style={tw`flex-row items-center gap-8 p-2 px-4`}>
-        <LikeButton />
-        <CommentButton />
+        {/* <LikeButton /> */}
+        {/* <CommentButton /> */}
       </View>
       <View style={tw`gap-1 px-3`}>
         <Text>
           <Text onPress={() => console.log()} style={tw`font-roboto_bold`}>
-            {usuario.nick + ' '}
+            {(feed.participante?.usuario?.usuario ||
+              feed.polo?.usuario?.usuario) + ' '}
           </Text>
-          <Text>{postagem.descricao}</Text>
+          <Text>{feed.descricao}</Text>
         </Text>
-        {postagem.numeroDeComentarios !== 0 && (
+        {/* {postagem.numeroDeComentarios !== 0 && (
           <View>
             <Text style={tw`text-gray-400`}>
               Ver todos os {postagem.numeroDeComentarios} comentários
             </Text>
           </View>
-        )}
+        )} */}
       </View>
     </View>
   )

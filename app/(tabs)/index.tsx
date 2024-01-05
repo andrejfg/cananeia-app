@@ -17,7 +17,6 @@ export default function FeedScreen() {
   async function getFeedItems() {
     getFeed({}).then((response) => {
       if (response) {
-        console.log(response[0])
         setFeedItems(response)
       } else
         Toast.show('Falha ao recuperar o feed!', {
