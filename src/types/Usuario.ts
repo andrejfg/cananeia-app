@@ -3,8 +3,8 @@ import Participante from './Participante'
 import Polo from './Polo'
 
 type Usuario = {
-  id: string
-  usuario: string
+  id?: string
+  usuario?: string
   participante?: Participante
   polo?: Polo
   perfilImagem?: Imagem

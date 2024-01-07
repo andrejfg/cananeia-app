@@ -11,6 +11,8 @@ import CustomButton from '../CustomButton'
 import signin from '@/api/login/signin'
 import * as SecureStore from 'expo-secure-store'
 import { router } from 'expo-router'
+import { useAtom } from 'jotai'
+import { typeUserAtom, userAtom } from '@/atoms/user'
 
 /**
  * A functional component that renders an email login form.
@@ -40,12 +42,22 @@ export default function EmailLoginForm() {
   }, [methods])
 
   const [lembrar, setLembrar] = useState<boolean>(false)
+  const [, setUser] = useAtom(userAtom)
+  const [, setTypeUser] = useAtom(typeUserAtom)
 
   const onSubmit: SubmitHandler<emailLoginSchemaType> = async (data) => {
     const usuario = await signin(data)
     if (usuario) {
+      setUser(usuario)
+      if (usuario.participante) {
+        setTypeUser(0)
+      } else if (usuario.polo) {
+        setTypeUser(1)
+      }
+
       SecureStore.setItemAsync('usuario', lembrar ? data.usuario : '')
       SecureStore.setItemAsync('senha', lembrar ? data.senha : '')
+
       router.replace('/(tabs)')
     } else {
       Toast.show('Usuário e/ou senha não correspondem!', {

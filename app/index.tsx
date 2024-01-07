@@ -5,15 +5,26 @@ import EmailLoginForm from '@/components/EmailLoginForm/EmailLoginForm'
 import whoami from '@/api/user/whoami'
 import { router } from 'expo-router'
 import { useEffect } from 'react'
+import { useAtom } from 'jotai'
+import { typeUserAtom, userAtom } from '@/atoms/user'
 
 /**
  * A functional component representing the login screen of the application.
  * @returns JSX elements representing the login screen.
  */
 export default function LoginScreen() {
+  const [, setUser] = useAtom(userAtom)
+  const [, setTypeUser] = useAtom(typeUserAtom)
+
   async function getUser() {
     const user = await whoami()
     if (user) {
+      setUser(user)
+      if (user.participante) {
+        setTypeUser(0)
+      } else if (user.polo) {
+        setTypeUser(1)
+      }
       router.replace('/(tabs)')
     }
   }
@@ -21,6 +32,7 @@ export default function LoginScreen() {
   useEffect(() => {
     getUser()
   }, [])
+
   return (
     <ScrollView style={tw`flex-1 bg-white`}>
       <View style={tw`items-center py-8`}>

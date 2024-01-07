@@ -1,18 +1,19 @@
 import tw from '@/lib/tailwind'
-import blurhash from '@/constraints/blurhash'
-import { Image, ImageSource } from 'expo-image'
+import { Image } from 'expo-image'
+import FeedItemType from '@/types/FeedItem'
+import imageUrl from '@/utils/imageUrl'
 
 interface ProfileFeedItemProps {
-  source: ImageSource
+  item: FeedItemType
 }
 
-export default function ProfileFeedItem({ source }: ProfileFeedItemProps) {
+export default function ProfileFeedItem({ item }: ProfileFeedItemProps) {
   return (
     <Image
       style={tw`aspect-square w-[32%]`}
-      source={source}
+      source={imageUrl(item.imagem.nome)}
       alt="imagem do feed"
-      placeholder={blurhash}
+      placeholder={item.imagem.hash}
     />
   )
 }
