@@ -1,20 +1,30 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import tw from '@/lib/tailwind'
-import { useEffect, useState } from 'react'
-import { Camera, CameraType, FlashMode } from 'expo-camera'
+import React, { useEffect, useState } from 'react'
+import { Image } from 'expo-image'
+import * as ImagePicker from 'expo-image-picker'
+import { Camera } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
+import blurhash from '@/constraints/blurhash'
+import VectorIcon from './VectorIcon'
 
-import FlashButton from '@/components/CameraButtons/FlashButton'
-import SwitchCameraButton from '@/components/CameraButtons/SwitchCameraButton'
-import ShootButton from '@/components/CameraButtons/ShootButton'
+type CameraViewProps = {
+  setPhoto: React.Dispatch<
+    React.SetStateAction<ImagePicker.ImagePickerAsset | null>
+  >
+  photo: ImagePicker.ImagePickerAsset | null
+  proporcao: '1/1' | '4/5'
+  setProporcao: React.Dispatch<React.SetStateAction<'1/1' | '4/5'>>
+}
 
-export default function CameraView() {
-  const [type, setType] = useState(CameraType.back)
-  const [flashState, setFlashState] = useState(false)
+export default function CameraView({
+  photo,
+  setPhoto,
+  proporcao,
+  setProporcao,
+}: CameraViewProps) {
   const [hasCameraPermission, setHasCameraPermission] = useState(false)
   const [hasMediaLibrary, setHasMediaLibraryPermission] = useState(false)
-  const startCamera = hasCameraPermission && hasMediaLibrary
-  let camera: Camera
 
   useEffect(() => {
     async function getPermission() {
@@ -40,63 +50,107 @@ export default function CameraView() {
     }
 
     getPermission()
-    setType(CameraType.front)
   }, [])
 
-  /**
-   * Toggles the camera type between front and back.
-   * @returns None
-   */
-  function toggleCameraType() {
-    setType((current) =>
-      current === CameraType.back ? CameraType.front : CameraType.back,
+  const options = {
+    allowsEditing: true,
+    allowsMultipleSelection: false,
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  }
+
+  async function handleTakePhoto() {
+    const photo = await ImagePicker.launchCameraAsync({
+      ...options,
+      aspect: proporcao === '1/1' ? [1, 1] : [4, 5],
+    })
+    if (photo.assets && photo.assets[0]) setPhoto(photo.assets[0])
+  }
+  async function handleGetPhoto() {
+    const photo = await ImagePicker.launchImageLibraryAsync({
+      ...options,
+      aspect: proporcao === '1/1' ? [1, 1] : [4, 5],
+    })
+    if (photo.assets && photo.assets[0]) setPhoto(photo.assets[0])
+  }
+
+  if (!hasCameraPermission)
+    return (
+      <View style={tw`flex-1 items-center justify-center`}>
+        <Text>Permissão de camera é necessária</Text>
+      </View>
     )
-  }
-
-  /**
-   * Toggles the flash state between true and false.
-   * @returns None
-   */
-  function toggleFlashState() {
-    setFlashState((current) => !current)
-  }
-
-  async function takePicture() {
-    if (!camera) return
-    const photo = await camera.takePictureAsync()
-    // TODO: FAZER ALGO COM A FOTO
-  }
+  if (!hasMediaLibrary)
+    return (
+      <View style={tw`flex-1 items-center justify-center`}>
+        <Text>Permissão de arquivos é necessária</Text>
+      </View>
+    )
 
   return (
-    <View style={tw`flex-1 bg-black`}>
-      {startCamera ? (
-        <Camera
-          flashMode={flashState ? FlashMode.on : FlashMode.off}
-          ref={(r) => {
-            if (r) {
-              camera = r
-            }
-          }}
-          ratio="16:9"
-          style={tw`w-full flex-1 flex-row items-end pb-8`}
-          type={type}
-        >
-          <View style={tw`w-full flex-row items-center justify-around`}>
-            <SwitchCameraButton onPress={toggleCameraType} />
-            <ShootButton onPress={takePicture} />
-            <FlashButton
-              type={type}
-              onPress={toggleFlashState}
-              active={flashState}
-            />
-          </View>
-        </Camera>
-      ) : (
-        <View style={tw`w-full flex-1 items-center justify-center`}>
-          {hasCameraPermission && <Text>Permissão de camera é necessária</Text>}
-          {hasMediaLibrary && <Text>Permissão de arquivos é necessária</Text>}
+    <View style={tw`flex-1 gap-4`}>
+      <View style={tw`items-center gap-4`}>
+        <Text style={tw`pt-4 text-lg font-semibold`}>Proporção</Text>
+        <View style={tw`flex-row gap-16`}>
+          <TouchableOpacity
+            onPress={() => {
+              setProporcao('1/1')
+            }}
+            style={[
+              tw`h-14 w-14 items-center justify-center rounded-md border-2`,
+              proporcao === '1/1' ? tw`border-black` : tw`border-gray-300`,
+            ]}
+          >
+            <Text
+              style={[
+                tw`text-base font-semibold`,
+                proporcao === '1/1' ? tw`text-black` : tw`text-gray-400`,
+              ]}
+            >
+              1/1
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setProporcao('4/5')
+            }}
+            style={[
+              tw`h-14 w-[70px] items-center justify-center rounded-md border-2`,
+              proporcao === '4/5' ? tw`border-black` : tw`border-gray-300`,
+            ]}
+          >
+            <Text
+              style={[
+                tw`text-base font-semibold`,
+                proporcao === '4/5' ? tw`text-black` : tw`text-gray-400`,
+              ]}
+            >
+              4/5
+            </Text>
+          </TouchableOpacity>
         </View>
-      )}
+      </View>
+      <View style={[tw`m-2 gap-2 rounded-md border border-gray-300 p-2`]}>
+        <Image
+          style={[tw`w-full`, { aspectRatio: proporcao }]}
+          alt="teste"
+          source={photo}
+          placeholder={blurhash}
+        />
+        <View style={tw`flex-row justify-around`}>
+          <TouchableOpacity
+            style={tw`items-center justify-center`}
+            onPress={handleTakePhoto}
+          >
+            <VectorIcon color="grey" name="camera-outline" size={24} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={tw`items-center justify-center`}
+            onPress={handleGetPhoto}
+          >
+            <VectorIcon color="grey" name="add-photo-alternate" size={30} />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   )
 }
