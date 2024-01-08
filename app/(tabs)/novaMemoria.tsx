@@ -3,8 +3,8 @@ import HeaderMemoria from '@/components/HeaderMemoria'
 import { ImagePickerAsset } from 'expo-image-picker'
 import tw from '@/lib/tailwind'
 import { useState } from 'react'
-import { View, Text, ScrollView } from 'react-native'
-import { TextInput } from 'react-native-paper'
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import { ActivityIndicator, TextInput } from 'react-native-paper'
 import adicionarPublicacao from '@/api/publicacao/adicionar'
 import Toast from 'react-native-root-toast'
 import GetUsuario from '@/utils/getUsuario'
@@ -20,6 +20,7 @@ export default function NovaMemoriaScreen() {
   const [photo, setPhoto] = useState<ImagePickerAsset | null>(null)
   const [proporcao, setProporcao] = useState<'1/1' | '4/5'>('1/1')
   const [legenda, setLegenda] = useState<string>('')
+  const [loading, setLoading] = useState(false)
   const user = GetUsuario()
 
   async function handleAdicionar() {
@@ -39,6 +40,7 @@ export default function NovaMemoriaScreen() {
       })
       return
     }
+    setLoading(true)
     const publicacao = await adicionarPublicacao({
       descricao: legenda,
       image: photo,
@@ -60,6 +62,7 @@ export default function NovaMemoriaScreen() {
         duration: Toast.durations.SHORT,
       })
     }
+    setLoading(false)
     router.replace('/(tabs)/')
   }
 
@@ -89,6 +92,26 @@ export default function NovaMemoriaScreen() {
           </View>
         </View>
       </ScrollView>
+      {loading && (
+        <View
+          style={[
+            StyleSheet.absoluteFillObject,
+            tw`z-10 items-center justify-center`,
+          ]}
+        >
+          <View
+            style={[
+              StyleSheet.absoluteFillObject,
+              tw`opacity-15 items-center justify-center bg-black`,
+            ]}
+          />
+          <View
+            style={tw`items-center justify-center rounded-lg bg-white p-10`}
+          >
+            <ActivityIndicator size={'large'} />
+          </View>
+        </View>
+      )}
     </View>
   )
   // return <View />

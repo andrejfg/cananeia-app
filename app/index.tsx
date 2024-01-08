@@ -6,7 +6,12 @@ import whoami from '@/api/user/whoami'
 import { router } from 'expo-router'
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
-import { typeUserAtom, userAtom } from '@/atoms/user'
+import {
+  // ipDoServidorAtom,
+  typeUserAtom,
+  userAtom,
+} from '@/atoms/user'
+// import { TextInput } from 'react-native-paper'
 
 /**
  * A functional component representing the login screen of the application.
@@ -15,23 +20,23 @@ import { typeUserAtom, userAtom } from '@/atoms/user'
 export default function LoginScreen() {
   const [, setUser] = useAtom(userAtom)
   const [, setTypeUser] = useAtom(typeUserAtom)
-
-  async function getUser() {
-    const user = await whoami()
-    if (user) {
-      setUser(user)
-      if (user.participante) {
-        setTypeUser(0)
-      } else if (user.polo) {
-        setTypeUser(1)
-      }
-      router.replace('/(tabs)')
-    }
-  }
+  // const [ipDoServidor, setIpDoServidor] = useAtom(ipDoServidorAtom)
 
   useEffect(() => {
+    async function getUser() {
+      const user = await whoami()
+      if (user) {
+        setUser(user)
+        if (user.participante) {
+          setTypeUser(0)
+        } else if (user.polo) {
+          setTypeUser(1)
+        }
+        router.replace('/(tabs)')
+      }
+    }
     getUser()
-  }, [])
+  }, [setTypeUser, setUser])
 
   return (
     <ScrollView style={tw`flex-1 bg-white`}>
@@ -51,6 +56,16 @@ export default function LoginScreen() {
         </Text>
         <EmailLoginForm />
       </View>
+
+      {/* <TextInput
+        placeholder="ip do servidor"
+        value={ipDoServidor}
+        mode="outlined"
+        style={tw`m-10`}
+        onChange={(e) => {
+          setIpDoServidor(e.nativeEvent.text)
+        }}
+      /> */}
     </ScrollView>
   )
 }

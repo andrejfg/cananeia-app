@@ -34,7 +34,7 @@ export default function FeedItem({ feed, isAprovados }: FeedItemProps) {
     await deletePublicacao(feed.id)
     setApprovedOrDeleted(true)
     setOptionsVisible(false)
-    Toast.show('Publicação aprovada!', {
+    Toast.show('Publicação deletada!', {
       position: 0,
       backgroundColor: '#368cd7a6',
       textColor: 'white',
