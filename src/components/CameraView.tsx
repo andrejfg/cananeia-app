@@ -53,23 +53,18 @@ export default function CameraView({
   }, [])
 
   const options = {
+    quality: 0.7,
     allowsEditing: true,
-    allowsMultipleSelection: false,
+    aspect: proporcao === '1/1' ? [1, 1] : [4, 5],
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  }
+  } as ImagePicker.ImagePickerOptions
 
   async function handleTakePhoto() {
-    const photo = await ImagePicker.launchCameraAsync({
-      ...options,
-      aspect: proporcao === '1/1' ? [1, 1] : [4, 5],
-    })
+    const photo = await ImagePicker.launchCameraAsync(options)
     if (photo.assets && photo.assets[0]) setPhoto(photo.assets[0])
   }
   async function handleGetPhoto() {
-    const photo = await ImagePicker.launchImageLibraryAsync({
-      ...options,
-      aspect: proporcao === '1/1' ? [1, 1] : [4, 5],
-    })
+    const photo = await ImagePicker.launchImageLibraryAsync(options)
     if (photo.assets && photo.assets[0]) setPhoto(photo.assets[0])
   }
 
