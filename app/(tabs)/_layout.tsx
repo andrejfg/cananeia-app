@@ -1,12 +1,11 @@
 import { Tabs } from 'expo-router'
-import { Image } from 'expo-image'
 import tw from '@/lib/tailwind'
 import VectorIcon from '@/components/VectorIcon'
-import imageUrl from '@/utils/imageUrl'
 import GetUsuario from '@/utils/getUsuario'
+import ImageProfile from '@/components/imageProfile'
 
 export default function TabLayout() {
-  const user = GetUsuario()
+  const usuario = GetUsuario()
   return (
     <Tabs
       screenOptions={{
@@ -68,14 +67,9 @@ export default function TabLayout() {
         options={{
           unmountOnBlur: true,
           tabBarIcon: ({ focused }) => (
-            <Image
-              style={[
-                tw`aspect-square h-8 rounded-full`,
-                focused && tw`border-[2.5px] border-black`,
-              ]}
-              source={user && imageUrl(user.perfilImagem?.nome)}
-              placeholder={user && user.perfilImagem?.hash}
-              alt="Imagem de Perfil"
+            <ImageProfile
+              usuario={usuario}
+              style={[tw`h-8`, focused && tw`border-[2.5px] border-black`]}
             />
           ),
         }}

@@ -1,8 +1,7 @@
 import tw from '@/lib/tailwind'
 import { View, Text } from 'react-native'
-import { Image } from 'expo-image'
 import Usuario from '@/types/Usuario'
-import imageUrl from '@/utils/imageUrl'
+import ImageProfile from './imageProfile'
 
 interface InfoProfileProps {
   usuario: Usuario
@@ -27,12 +26,7 @@ export default function InfoProfile({
   return (
     <View style={tw`flex-row py-4`}>
       <View style={tw`items-center`}>
-        <Image
-          style={tw`aspect-square h-20 rounded-full `}
-          source={imageUrl(usuario.perfilImagem?.nome)}
-          placeholder={usuario.perfilImagem?.hash}
-          alt="Imagem de Perfil"
-        />
+        <ImageProfile usuario={usuario} style={tw`h-20`} />
         <Text style={tw`w-3/5  text-center font-roboto_semi text-sm`}>
           {usuario?.participante?.nome || usuario?.polo?.nome}
         </Text>

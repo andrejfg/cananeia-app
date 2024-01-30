@@ -54,9 +54,9 @@ export default function PerfilScreen() {
           <InfoProfile usuario={user} numeroDePublicacoes={myFeedList.length} />
         )}
         <View style={tw`gap-4`}>
-          <View style={tw`items-center`}>
+          {/* <View style={tw`items-center`}>
             <CustomButton label="Editar perfil" />
-          </View>
+          </View> */}
           <View style={tw`flex-1 flex-row flex-wrap items-start gap-1 pl-1.5`}>
             {myFeedList &&
               myFeedList
