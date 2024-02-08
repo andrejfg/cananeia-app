@@ -1,5 +1,3 @@
-import { baseURL } from '@/api/api'
-
 export default function imageUrl(nome?: string) {
-  return `${baseURL}/upload/${nome}`
+  return `https://drive.google.com/uc?export=view&id=${nome}`
 }

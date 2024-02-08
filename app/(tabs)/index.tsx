@@ -2,6 +2,7 @@ import getFeed from '@/api/publicacao/feed'
 import getPendingFeed from '@/api/publicacao/pending'
 import FeedItem from '@/components/FeedItem'
 import HeaderFeed from '@/components/HeaderFeed'
+import { WithoutFeed } from '@/components/WithoutFeed'
 import tw from '@/lib/tailwind'
 import FeedItemType from '@/types/FeedItem'
 import { useEffect, useState } from 'react'
@@ -16,13 +17,6 @@ export default function FeedScreen() {
   const [feedItems, setFeedItems] = useState<FeedItemType[] | null>()
   const [isAprovados, setIsAprovados] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
-
-  async function getFeedItems() {
-    setRefreshing(true)
-    if (isAprovados) await getAprovedFeedItems()
-    else await getPendingFeedItems()
-    setRefreshing(false)
-  }
 
   async function getAprovedFeedItems() {
     const feed = await getFeed({})
@@ -51,9 +45,21 @@ export default function FeedScreen() {
     setIsAprovados((prev) => !prev)
   }
 
+  async function getFeedItems2() {
+    setRefreshing(true)
+    if (isAprovados) await getAprovedFeedItems()
+    else await getPendingFeedItems()
+    setRefreshing(false)
+  }
+
   useEffect(() => {
+    async function getFeedItems() {
+      setRefreshing(true)
+      if (isAprovados) await getAprovedFeedItems()
+      else await getPendingFeedItems()
+      setRefreshing(false)
+    }
     getFeedItems()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAprovados])
 
   return (
@@ -62,16 +68,21 @@ export default function FeedScreen() {
       <ScrollView
         style={tw`flex-1`}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={getFeedItems} />
+          <RefreshControl refreshing={refreshing} onRefresh={getFeedItems2} />
         }
       >
         <View style={tw`flex-1 gap-4 pb-8`}>
-          {feedItems &&
-            feedItems.map((item) => {
-              return (
-                <FeedItem key={item.id} feed={item} isAprovados={isAprovados} />
-              )
-            })}
+          {feedItems && feedItems.length > 0
+            ? feedItems.map((item) => {
+                return (
+                  <FeedItem
+                    key={item.id}
+                    feed={item}
+                    isAprovados={isAprovados}
+                  />
+                )
+              })
+            : isAprovados && <WithoutFeed />}
         </View>
       </ScrollView>
     </View>

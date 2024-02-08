@@ -87,7 +87,7 @@ export default function FeedItem({ feed, isAprovados }: FeedItemProps) {
           </TouchableOpacity>
         </View>
         <Image
-          style={{ aspectRatio: '4/5' }}
+          style={{ aspectRatio: feed.imagem.proporcao || '1/1' }}
           source={imageUrl(feed.imagem.nome)}
           placeholder={feed.imagem.hash}
           alt="imagem do feed"

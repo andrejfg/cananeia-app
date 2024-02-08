@@ -24,14 +24,14 @@ export default function InfoProfile({
   numeroDePublicacoes,
 }: InfoProfileProps) {
   return (
-    <View style={tw`flex-row py-4`}>
-      <View style={tw`items-center`}>
+    <View style={tw`flex-row p-4`}>
+      <View style={tw`items-center px-4`}>
         <ImageProfile usuario={usuario} style={tw`h-20`} />
-        <Text style={tw`w-3/5  text-center font-roboto_semi text-sm`}>
+        <Text style={tw`w-3/5 text-center font-roboto_semi text-sm`}>
           {usuario?.participante?.nome || usuario?.polo?.nome}
         </Text>
       </View>
-      <View style={tw`flex-1 flex-row justify-start `}>
+      <View style={tw`flex-1 flex-row justify-between px-4`}>
         <View style={tw`items-center justify-center`}>
           <Text style={tw`text-center font-roboto_semi text-lg`}>
             {usuario.participante?.polo?.numero || usuario.polo?.numero}

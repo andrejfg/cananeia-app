@@ -1,5 +1,5 @@
 import tw from '@/lib/tailwind'
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import CustomButton from './CustomButton'
 import signout from '@/api/login/signout'
 import { router } from 'expo-router'
@@ -31,24 +31,33 @@ export default function HeaderProfile({ nick }: HeaderProfileProps) {
 
   return (
     <View
-      style={tw`w-full flex-row items-center  justify-between  border-b-[0.5px] border-b-gray-300 bg-white p-4`}
+      style={tw`w-full flex-row items-center justify-between gap-4  border-b-[0.5px] border-b-gray-300 bg-white p-4`}
     >
       <Text style={tw`font-roboto_bold text-xl`}>{nick}</Text>
-      <View style={tw`flex-row gap-4`}>
-        {user && user.participante?.comissao && (
+      <ScrollView horizontal>
+        <View style={tw`flex-row gap-4`}>
+          {user && user.participante?.comissao && (
+            <>
+              <CustomButton
+                onPress={toggleUserType}
+                style={tw`rounded-full`}
+                label={'Criar usuário'}
+              />
+              <CustomButton
+                onPress={toggleUserType}
+                style={tw`rounded-full`}
+                label={type === 0 ? 'Polo' : 'Participante'}
+              />
+            </>
+          )}
           <CustomButton
-            onPress={toggleUserType}
-            style={tw`rounded-full`}
-            label={type === 0 ? 'Polo' : 'Participante'}
+            onPress={handleLogout}
+            tipo="cancel"
+            style={tw`rounded-full `}
+            label="Sair"
           />
-        )}
-        <CustomButton
-          onPress={handleLogout}
-          tipo="cancel"
-          style={tw`rounded-full `}
-          label="Sair"
-        />
-      </View>
+        </View>
+      </ScrollView>
     </View>
   )
 }

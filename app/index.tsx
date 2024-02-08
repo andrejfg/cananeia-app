@@ -6,11 +6,7 @@ import whoami from '@/api/user/whoami'
 import { router } from 'expo-router'
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
-import {
-  // ipDoServidorAtom,
-  typeUserAtom,
-  userAtom,
-} from '@/atoms/user'
+import { typeUserAtom, userAtom } from '@/atoms/user'
 // import { TextInput } from 'react-native-paper'
 
 /**
@@ -20,7 +16,6 @@ import {
 export default function LoginScreen() {
   const [, setUser] = useAtom(userAtom)
   const [, setTypeUser] = useAtom(typeUserAtom)
-  // const [ipDoServidor, setIpDoServidor] = useAtom(ipDoServidorAtom)
 
   useEffect(() => {
     async function getUser() {

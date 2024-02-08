@@ -9,6 +9,7 @@ import FeedItemType from '@/types/FeedItem'
 import getMyFeed from '@/api/publicacao/myfeed'
 import Toast from 'react-native-root-toast'
 import GetUsuario from '@/utils/getUsuario'
+import { WithoutFeed } from '@/components/WithoutFeed'
 
 /**
  * Renders the profile screen component.
@@ -53,21 +54,28 @@ export default function PerfilScreen() {
         {user && (
           <InfoProfile usuario={user} numeroDePublicacoes={myFeedList.length} />
         )}
+        <View style={tw`mx-10 mb-4 h-px bg-slate-200`} />
         <View style={tw`gap-4`}>
           {/* <View style={tw`items-center`}>
             <CustomButton label="Editar perfil" />
           </View> */}
           <View style={tw`flex-1 flex-row flex-wrap items-start gap-1 pl-1.5`}>
             {myFeedList &&
-              myFeedList
-                .sort(
-                  (a, b) =>
-                    new Date(b.createdAt).getTime() -
-                    new Date(a.createdAt).getTime(),
-                )
-                .map((item) => {
-                  return <ProfileFeedItem key={item.id} item={item} />
-                })}
+              (myFeedList.length > 0
+                ? myFeedList
+                    .sort(
+                      (a, b) =>
+                        new Date(b.createdAt).getTime() -
+                        new Date(a.createdAt).getTime(),
+                    )
+                    .map((item) => {
+                      return <ProfileFeedItem key={item.id} item={item} />
+                    })
+                : !refreshing && (
+                    <View style={tw`w-full`}>
+                      <WithoutFeed />
+                    </View>
+                  ))}
           </View>
         </View>
       </ScrollView>

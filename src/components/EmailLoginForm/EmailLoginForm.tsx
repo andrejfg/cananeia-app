@@ -29,9 +29,11 @@ export default function EmailLoginForm() {
 
   useEffect(() => {
     async function usuarioESenhaSalvos() {
-      const usuario = await SecureStore.getItemAsync('usuario')
+      const usuario = await SecureStore.getItemAsync('usuario').catch(
+        () => null,
+      )
       methods.setValue('usuario', usuario || '')
-      const senha = await SecureStore.getItemAsync('senha')
+      const senha = await SecureStore.getItemAsync('senha').catch(() => null)
       methods.setValue('senha', senha || '')
       if (usuario && senha) {
         setLembrar(true)
